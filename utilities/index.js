@@ -28,7 +28,7 @@ Util.getNav = async function (req, res, next) {
 * Build the classification view HTML
 * ************************************ */
 Util.buildClassificationGrid = async function(data){
-  let grid;
+  let grid
   if(data.length > 0){
     grid = '<ul id="inv-display">'
     data.forEach(vehicle => { 
@@ -56,6 +56,37 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
+
+/* **************************************
+* Build the item view HTML
+* ************************************ */
+
+Util.buildInventoryDiv = async function(data){
+  let div
+  console.log(data)
+  if (data) {
+    div = `<div id="item-display">
+      <img src="${data.inv_image}" alt="Image of ${data.inv_make} ${data.inv_model} on CSE Motors">
+      <div id="details">
+          <h2>${data.inv_year} ${data.inv_make} ${data.inv_model}</h2>
+          <p>${data.inv_description}</p>
+          <ul>
+            <li><b>Miles:</b> ${data.inv_miles}</li>
+            <li><b>Color:</b> ${data.inv_color}</li>
+            <li><b>Price:</b> $${data.inv_price}</li>
+          </ul>
+      </div>
+    </div>`
+  } else {
+    div = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return div
+}
+
+// Middleware for throwing errors
+Util.causeError = (req, res, next) => {
+  throw new Error("This is a 500 error from middleware!")
+};
 
 /* ****************************************
  * Middleware For Handling Errors
