@@ -71,9 +71,9 @@ Util.buildInventoryDiv = async function(data){
           <h2>${data.inv_year} ${data.inv_make} ${data.inv_model}</h2>
           <p>${data.inv_description}</p>
           <ul>
-            <li><b>Miles:</b> ${data.inv_miles}</li>
+            <li><b>Miles:</b> ${data.inv_miles.toLocaleString()}</li>
             <li><b>Color:</b> ${data.inv_color}</li>
-            <li><b>Price:</b> $${data.inv_price}</li>
+            <li><b>Price:</b> $${Number(data.inv_price).toLocaleString()}</li>
           </ul>
       </div>
     </div>`
