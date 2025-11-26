@@ -7,11 +7,9 @@ const bcrypt = require("bcryptjs");
 * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
-  let loginForm = await utilities.buildLoginForm()
   res.render("account/login", {
     title: "Login",
     nav,
-    loginForm,
   })
 }
 
@@ -20,12 +18,13 @@ async function buildLogin(req, res, next) {
 * *************************************** */
 async function buildRegistration(req, res, next) {
   let nav = await utilities.getNav()
-  let registerForm = await utilities.buildRegisterForm();
   res.render("account/register", {
     title: "Register",
     nav,
+    account_firstname: req.body?.account_firstname || "",
+    account_lastname: req.body?.account_lastname || "",
+    account_email: req.body?.account_email || "",
     errors: null,
-    registerForm,
   })
 }
 

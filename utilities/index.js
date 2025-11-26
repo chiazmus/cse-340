@@ -83,44 +83,28 @@ Util.buildInventoryDiv = async function(data){
   return div
 }
 
-/* **************************************
-* Build the login view HTML
-* ************************************ */
+/* ****************************************
+ * Build ClassificationList
+ **************************************** */
 
-Util.buildLoginForm = async function(){
-  let form
-  form = `<div id="login-form">
-            <form action="/account/login" method="post">
-              <label class="label-input">Email: <input type="email" id="account_email" name="account_email" required></label>
-              <label class="label-input">Password: <input type="text" id="account_password" name="account_password" required minlength="12" pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+"
-              title="Must contain at least one number and one uppercase letter, and one special character, and at least 12 characters long."></label>
-              <input type="submit" value="Login">
-            </form>
-            <p>No account? <a href="/account/register">Sign Up</a></p>
-          </div>`
-  return form
+Util.buildClassificationList = async function(classification_id=null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
 }
-
-
-/* **************************************
-* Build the register view HTML
-* ************************************ */
-
-Util.buildRegisterForm = async function(){
-  let form
-  form = `<div id="register-form">
-            <form action="/account/register" method="post">
-              <label class="label-input">First Name: <input type="text" id="account_firstname" name="account_firstname" required value="<%= locals.account_firstname %>"></label>
-              <label class="label-input">Last Name: <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>"></label>
-              <label class="label-input">Email Address: <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>"></label>
-              <label class="label-input">Password: <input type="text" id="account_password" name="account_password" minlength="12" pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+"
-              title="Must contain at least one number and one uppercase letter, and one special character, and at least 12 characters long." required></label>
-              <input type="submit" value="Register">
-            </form>
-          </div>`
-  return form
-}
-
 
 // Middleware for throwing errors
 Util.causeError = (req, res, next) => {

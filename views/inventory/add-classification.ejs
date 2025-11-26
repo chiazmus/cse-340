@@ -1,0 +1,16 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<main>
+  <div id="modify-classification">
+    <form action="/inv/add-classification" method="post">
+        <label class="label-input">Classification Name: <input type="text" name="classification_name" id="classification_name" required></label>
+        <input type="submit" value="Add Classification">
+    </form>
+  </div>
+</main>

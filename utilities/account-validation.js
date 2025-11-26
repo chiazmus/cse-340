@@ -51,6 +51,10 @@ return [
         minSymbols: 1,
     })
     .withMessage("Password does not meet requirements."),
+    body("classification_name")
+    .trim()
+    .notEmpty()
+    .withMessage("Classification name is required."),
 ]
 }
 
